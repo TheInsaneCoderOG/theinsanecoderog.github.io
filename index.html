@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Neural Network</title>
+  </head>
+  <body>
+    <div id="ui" style="width:200px; height:250px; background-color:rgba(72,72,88,0.75); position:absolute; left:20px; top:20px;">
+      <button onclick="closeUI()" id="closeUI" style="width:200px; height:30px; position:relative; top:250px;">Close UI</button>
+      <button onclick="openUI()" id="openUI" style="width:200px; height:30px; position:relative; top:-30px;" hidden>Open UI</button>
+    </div>
+  </body>
+  <script>
+    const ui = document.getElementById("ui")
+    const buttonClose = document.getElementById("closeUI")
+    const buttonOpen = document.getElementById("openUI")
+    requestAnimationFrame(loop)
+    
+    function setElementVisible(element, shouldShow) {
+      if (!element || typeof(shouldShow) !== 'boolean') 
+        return
+      element.hidden = !shouldShow
+    }
+    
+    function closeUI() {
+      setElementVisible(ui, false)
+      setElementVisible(buttonClose, false)
+      setElementVisible(buttonOpen, true)
+    }
+
+    function openUI() {
+      setElementVisible(ui, true)
+      setElementVisible(buttonClose, true)
+      setElementVisible(buttonOpen, false)
+    }
+    
+    function loop() {
+      requestAnimationFrame(loop)
+    }
+  </script>
+</html>
