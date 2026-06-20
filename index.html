@@ -15,22 +15,16 @@
     const buttonOpen = document.getElementById("openUI")
     requestAnimationFrame(loop)
     
-    function setElementVisible(element, shouldShow) {
-      if (!element || typeof(shouldShow) !== 'boolean') 
-        return
-      element.hidden = !shouldShow
-    }
-    
     function closeUI() {
-      setElementVisible(ui, false)
-      setElementVisible(buttonClose, false)
-      setElementVisible(buttonOpen, true)
+      ui.hidden
+      buttonClose.hidden
+      buttonOpen.hidden = false
     }
 
     function openUI() {
-      setElementVisible(ui, true)
-      setElementVisible(buttonClose, true)
-      setElementVisible(buttonOpen, false)
+      ui.hidden = false
+      buttonClose.hidden = false
+      buttonOpen.hidden
     }
     
     function loop() {
