@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <title>Neural Network</title>
     <link rel="stylesheet" href="styling.css">
+    <script src="script.js">
   </head>
   <body>
     <div id="ui" class="ui">
@@ -10,26 +11,4 @@
     </div>
   <button onclick="openUI()" id="openUI" class="openUI" hidden>Open UI</button>
   </body>
-  <script>
-    const ui = document.getElementById("ui")
-    const buttonClose = document.getElementById("closeUI")
-    const buttonOpen = document.getElementById("openUI")
-    requestAnimationFrame(loop)
-    
-    function closeUI() {
-      ui.hidden
-      buttonClose.hidden
-      buttonOpen.hidden = false
-    }
-
-    function openUI() {
-      ui.hidden = false
-      buttonClose.hidden = false
-      buttonOpen.hidden
-    }
-    
-    function loop() {
-      requestAnimationFrame(loop)
-    }
-  </script>
 </html>
