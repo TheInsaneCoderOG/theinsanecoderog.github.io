@@ -1,0 +1,23 @@
+.ui {
+  width: 200px;
+  height: 250px;
+  background-color: rgba(72,72,88,0.75);
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.closeUI {
+  width: 200px;
+  height: 30px;
+  position: relative;
+  top: 250px;
+}
+
+.openUI {
+  width: 200px;
+  height: 30px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
