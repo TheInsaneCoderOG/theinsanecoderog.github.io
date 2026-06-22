@@ -1,20 +1,22 @@
-const ui = document.getElementById("ui")
-const buttonClose = document.getElementById("closeUI")
-const buttonOpen = document.getElementById("openUI")
-requestAnimationFrame(loop)
+const ui = document.getElementById("ui");
+const buttonClose = document.getElementById("closeUI");
+const buttonOpen = document.getElementById("openUI");
+requestAnimationFrame(loop);
 
 function closeUI() {
-  ui.hidden
-  buttonClose.hidden
-  buttonOpen.hidden = false
+  console.log("Ran 'closeUI' function");
+  ui.hidden;
+  buttonClose.hidden;
+  buttonOpen.hidden = false;
 }
 
 function openUI() {
-  ui.hidden = false
-  buttonClose.hidden = false
-  buttonOpen.hidden
+  console.log("Ran 'openUI' function");
+  ui.hidden = false;
+  buttonClose.hidden = false;
+  buttonOpen.hidden;
 }
 
 function loop() {
-  requestAnimationFrame(loop)
+  requestAnimationFrame(loop);
 }
