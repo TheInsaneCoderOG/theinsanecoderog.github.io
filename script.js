@@ -137,6 +137,11 @@ function init() {
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "red";
+  ctx.beginPath();
+  ctx.arc(mouseX, mouseY, 10, 0, 2*Math.PI);
+  ctx.fill();
+  ctx.closePath();
   clearGrid();
   for (let i = 0; i < blobsArray.length; i++) {
     insertBlob(blobsArray[i]);
