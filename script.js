@@ -4,17 +4,15 @@ const buttonOpen = document.getElementById("openUI");
 requestAnimationFrame(loop);
 
 function closeUI() {
-  console.log("Ran 'closeUI' function");
-  ui.hidden;
-  buttonClose.hidden;
+  ui.hidden = true;
+  buttonClose.hidden = true;
   buttonOpen.hidden = false;
 }
 
 function openUI() {
-  console.log("Ran 'openUI' function");
   ui.hidden = false;
   buttonClose.hidden = false;
-  buttonOpen.hidden;
+  buttonOpen.hidden = true;
 }
 
 function loop() {
