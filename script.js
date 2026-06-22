@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById('stage');
 const ctx = canvas.getContext('2d');
 const TOTAL_BLOBS = 5; 
