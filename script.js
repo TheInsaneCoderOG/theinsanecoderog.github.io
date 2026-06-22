@@ -9,13 +9,13 @@ let mouseY = 0;
 let gravity = 0;
 let simDensity = 0;
 
-window.addEventListener('mousemove',event) {
+window.addEventListener('mousemove',event) => {
   mouseX = event.pageX;
-  mouseY = event.pageY
+  mouseY = event.pageY;
 }
 
 function sign(x) {
-  return x < 0 ? -1 : 1
+  return x < 0 ? -1 : 1;
 }
 
 class Blob {
