@@ -1,22 +1,19 @@
 const canvas = document.getElementById('stage');
+const canvasBoundRect = canvas.getBoundingClientRect();
 const ctx = canvas.getContext('2d');
-const TOTAL_BLOBS = 5; 
+const totalBlobs = 5; 
 const blobsArray = [];
-const CELL_SIZE = 80;
+const cellSize = 80;
 let spatialGrid = {};
 let mouseX = 0;
 let mouseY = 0;
 let gravity = 0;
 let simDensity = 0;
 
-window.addEventListener('mousemove',(event) {
-  mouseX = event.pageX;
-  mouseY = event.pageY;
+canvas.addEventListener('mousemove',(event) {
+  mouseX = event.pageX-canvasBoundRect.left;
+  mouseY = event.pageY-canvasBoundRect.top;
 })
-
-function sign(x) {
-  return x < 0 ? -1 : 1;
-}
 
 class Blob {
   constructor(canvasWidth, canvasHeight) {
@@ -45,12 +42,12 @@ class Blob {
       
       let dx = other.x - this.x;
       let dy = other.y - this.y;
-      let distSq = dx*dx + dy*dy;
-      let minDist = this.size + other.size;
+      let distSq = dx*dx+dy*dy;
+      let minDist = this.size+other.size;
       if (distSq > 0.0001 && distSq-minDist*minDist <= 0) {
         let dist = Math.sqrt(distSq);
-        let nx = dx /dist;
-        let ny = dy /dist;
+        let nx = dx/dist;
+        let ny = dy/dist;
         this.speedXi = (this.speedX*nx)+(this.speedY*ny);
         other.speedXi = (other.speedX*nx)+(other.speedY*ny);
         let ela = (this.ela+other.ela)/2;
@@ -109,20 +106,20 @@ function clearGrid() {
 }
 
 function insertBlob(blob) {
-  let cx = Math.floor(blob.x / CELL_SIZE);
-  let cy = Math.floor(blob.y / CELL_SIZE);
-  let key = cx + ',' + cy;
+  let cx = Math.floor(blob.x/cellSize);
+  let cy = Math.floor(blob.y/cellSize);
+  let key = cx+','+cy;
   if (!spatialGrid[key]) spatialGrid[key] = [];
   spatialGrid[key].push(blob);
 }
 
 function getNeighbors(blob) {
-  let cx = Math.floor(blob.x / CELL_SIZE);
-  let cy = Math.floor(blob.y / CELL_SIZE);
+  let cx = Math.floor(blob.x/cellSize);
+  let cy = Math.floor(blob.y/cellSize);
   let result = [];
-  for (let x = cx - 1; x <= cx + 1; x++) {
-    for (let y = cy - 1; y <= cy + 1; y++) {
-      let key = x + ',' + y;
+  for (let x = cx-1; x <= cx+1; x++) {
+    for (let y = cy-1; y <= cy+1; y++) {
+      let key = x+','+y;
       if (spatialGrid[key]) result.push(...spatialGrid[key]);
     }
   }
@@ -130,7 +127,7 @@ function getNeighbors(blob) {
 }
 
 function init() {
-  for (let i = 0; i < TOTAL_BLOBS; i++) {
+  for (let i = 0; i < totalBlobs; i++) {
     blobsArray.push(new Blob(canvas.width, canvas.height));
   }
 }
