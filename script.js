@@ -1,7 +1,7 @@
 const canvas = document.getElementById('stage');
 const canvasBoundRect = canvas.getBoundingClientRect();
 const ctx = canvas.getContext('2d');
-const totalBlobs = 5; 
+const totalBlobs = 5;
 const blobsArray = [];
 const cellSize = 80;
 let spatialGrid = {};
@@ -10,13 +10,13 @@ let mouseY = 0;
 let gravity = 0;
 let simDensity = 0;
 
-canvas.addEventListener('mousemove',(event) {
-  mouseX = event.pageX-canvasBoundRect.left;
-  mouseY = event.pageY-canvasBoundRect.top;
+canvas.addEventListener('mousemove',function(event) {
+  mouseX = event.pageX-(canvasBoundRect.left+window.scrollX);
+  mouseY = event.pageY-(canvasBoundRect.top+windpw.scrollY);
 })
 
 class Blob {
-  constructor(canvasWidth, canvasHeight) {
+  constructor(canvasWidth,canvasHeight) {
     this.id = Blob.nextId++;
     this.size = 20;
     this.x = Math.random()*(canvasWidth-this.size);
@@ -25,7 +25,7 @@ class Blob {
     this.speedY = (Math.random()-0.5)*4;
     this.speedXi = 0;
     this.speedYi = 0;
-    this.color = `hsl(${Math.random()*360}, 80%, 60%)`;
+    this.color = `hsl(${Math.random()*360},80%,60%)`;
     this.ela = 1;
     this.density = Math.random()*5+10;
     this.area = Math.PI*Math.pow(this.size,2);
@@ -33,15 +33,15 @@ class Blob {
     this.termVel = 50;
   }
   
-  updateSpeed(canvasWidth, canvasHeight) {
+  updateSpeed(canvasWidth,canvasHeight) {
     this.speedY += gravity;
     let neighbors = getNeighbors(this);
     for (let other of neighbors) {
       if (other === this) continue;
       if (this.id >= other.id) continue;
       
-      let dx = other.x - this.x;
-      let dy = other.y - this.y;
+      let dx = other.x-this.x;
+      let dy = other.y-this.y;
       let distSq = dx*dx+dy*dy;
       let minDist = this.size+other.size;
       if (distSq > 0.0001 && distSq-minDist*minDist <= 0) {
@@ -85,7 +85,7 @@ class Blob {
     }
   }
   
-  updatePos(canvasWidth, canvasHeight) {
+  updatePos(canvasWidth,canvasHeight) {
     this.x += this.speedX;
     this.y += this.speedY;
   }
@@ -93,17 +93,13 @@ class Blob {
   draw(context) {
     context.fillStyle = this.color;
     context.beginPath();
-    context.arc(this.x, this.y, this.size, 0, 2*Math.PI);
+    context.arc(this.x,this.y,this.size,0,2*Math.PI);
     context.fill();
     context.closePath();
   }
 }
 
 Blob.nextId = 0;
-
-function clearGrid() {
-  spatialGrid = {};
-}
 
 function insertBlob(blob) {
   let cx = Math.floor(blob.x/cellSize);
@@ -128,24 +124,24 @@ function getNeighbors(blob) {
 
 function init() {
   for (let i = 0; i < totalBlobs; i++) {
-    blobsArray.push(new Blob(canvas.width, canvas.height));
+    blobsArray.push(new Blob(canvas.width,canvas.height));
   }
 }
 
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle = "red";
   ctx.beginPath();
-  ctx.arc(mouseX, mouseY, 10, 0, 2*Math.PI);
+  ctx.arc(mouseX,mouseY,10,0,2*Math.PI);
   ctx.fill();
   ctx.closePath();
-  clearGrid();
+  spatialGrid = {};
   for (let i = 0; i < blobsArray.length; i++) {
     insertBlob(blobsArray[i]);
   }
   for (let i = 0; i < blobsArray.length; i++) {
-    blobsArray[i].updateSpeed(canvas.width, canvas.height);
-    blobsArray[i].updatePos(canvas.width, canvas.height);
+    blobsArray[i].updateSpeed(canvas.width,canvas.height);
+    blobsArray[i].updatePos(canvas.width,canvas.height);
     blobsArray[i].draw(ctx);
   }
   requestAnimationFrame(animate);
