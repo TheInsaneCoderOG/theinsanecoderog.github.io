@@ -12,7 +12,7 @@ let simDensity = 0;
 
 canvas.addEventListener('mousemove',function(event) {
   mouseX = event.pageX-(canvasBoundRect.left+window.scrollX);
-  mouseY = event.pageY-(canvasBoundRect.top+windpw.scrollY);
+  mouseY = event.pageY-(canvasBoundRect.top+window.scrollY);
 })
 
 class Blob {
@@ -21,6 +21,8 @@ class Blob {
     this.size = 20;
     this.x = Math.random()*(canvasWidth-this.size);
     this.y = Math.random()*(canvasHeight-this.size);
+    this.cx = Math.floor(blob.x/cellSize);
+    this.cy = Math.floor(blob.y/cellSize);
     this.speedX = (Math.random()-0.5)*4; 
     this.speedY = (Math.random()-0.5)*4;
     this.speedXi = 0;
@@ -88,6 +90,8 @@ class Blob {
   updatePos(canvasWidth,canvasHeight) {
     this.x += this.speedX;
     this.y += this.speedY;
+    this.cx = Math.floor(blob.x/cellSize);
+    this.cy = Math.floor(blob.y/cellSize);
   }
   
   draw(context) {
@@ -102,19 +106,15 @@ class Blob {
 Blob.nextId = 0;
 
 function insertBlob(blob) {
-  let cx = Math.floor(blob.x/cellSize);
-  let cy = Math.floor(blob.y/cellSize);
-  let key = cx+','+cy;
+  let key = blob.cx+','+blob.cy;
   if (!spatialGrid[key]) spatialGrid[key] = [];
   spatialGrid[key].push(blob);
 }
 
 function getNeighbors(blob) {
-  let cx = Math.floor(blob.x/cellSize);
-  let cy = Math.floor(blob.y/cellSize);
   let result = [];
-  for (let x = cx-1; x <= cx+1; x++) {
-    for (let y = cy-1; y <= cy+1; y++) {
+  for (let x = blob.cx-1; x <= blob.cx+1; x++) {
+    for (let y = blob.cy-1; y <= blob.cy+1; y++) {
       let key = x+','+y;
       if (spatialGrid[key]) result.push(...spatialGrid[key]);
     }
