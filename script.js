@@ -21,8 +21,8 @@ class Blob {
     this.size = 20;
     this.x = Math.random()*(canvasWidth-this.size);
     this.y = Math.random()*(canvasHeight-this.size);
-    this.cx = Math.floor(blob.x/cellSize);
-    this.cy = Math.floor(blob.y/cellSize);
+    this.cx = Math.floor(this.x/cellSize);
+    this.cy = Math.floor(this.y/cellSize);
     this.speedX = (Math.random()-0.5)*4; 
     this.speedY = (Math.random()-0.5)*4;
     this.speedXi = 0;
