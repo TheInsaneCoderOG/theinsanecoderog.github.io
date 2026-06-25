@@ -23,7 +23,7 @@ class Blob {
     this.y = Math.random()*(canvasHeight-this.size);
     this.cx = Math.floor(this.x/cellSize);
     this.cy = Math.floor(this.y/cellSize);
-    this.speedX = (Math.random()-0.5)*4; 
+    this.speedX = (Math.random()-0.5)*4;
     this.speedY = (Math.random()-0.5)*4;
     this.speedXi = 0;
     this.speedYi = 0;
