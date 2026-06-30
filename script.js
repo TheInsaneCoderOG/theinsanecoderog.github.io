@@ -90,8 +90,8 @@ class Blob {
   updatePos(canvasWidth,canvasHeight) {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.cx = Math.floor(blob.x/cellSize);
-    this.cy = Math.floor(blob.y/cellSize);
+    this.cx = Math.floor(this.x/cellSize);
+    this.cy = Math.floor(this.y/cellSize);
   }
   
   draw(context) {
